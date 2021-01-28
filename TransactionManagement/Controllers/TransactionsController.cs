@@ -82,9 +82,6 @@ namespace TransactionManagement.Controllers
             return View();
         }
 
-        // POST: Transactions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Type,ShortNote,Amount,Date")] Transaction transaction)
@@ -160,9 +157,6 @@ namespace TransactionManagement.Controllers
             return View(transaction);
         }
 
-        // POST: Transactions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,OwnerId,Type,ShortNote,Date,Amount")] Transaction transaction)
