@@ -1,0 +1,108 @@
+﻿@model IEnumerable<TransactionManagement.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Index";
+    var user = (TransactionManagement.Models.UserDetails)ViewData["user"];
+}
+@if (user != null)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h4 class="text-primary">
+                    Total Balance:
+                    @user.TotalBalance
+                </h4>
+            </div>
+            <div class="col-md-4">
+                <h4 class="text-info">Total Income: @user.TotalIncome</h4>
+            </div>
+            <div class="col-md-4">
+                <h4 class="text-danger">Total Expence: @user.TotalExpence</h4>
+            </div>
+        </div>
+    </div>
+}
+<br />
+
+<div class="float-left">
+    <div class="row">
+        <div class="col-md-2">
+            <form asp-action="Index" method="post">
+                <div class="form-group">
+                    <input type="hidden" name="Type" value="null" />
+                    <button type="submit" class="btn btn-light">All</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form asp-action="Index" method="post">
+                <div class="form-group">
+                    <input type="hidden" name="Type" value="true" />
+                    <button type="submit" class="btn btn-light">IncomeList</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form asp-action="Index" method="post">
+                <div class="form-group">
+                    <input type="hidden" name="Type" value="false" />
+                    <button type="submit" class="btn btn-light">ExpenseList</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<p class="float-right">
+    <a asp-action="Create">Create New Transaction</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                Action
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.Type == false)
+                    {
+                        <p>Expense</p>
+                    }
+                    else
+                    {
+                        <p>Income</p>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
